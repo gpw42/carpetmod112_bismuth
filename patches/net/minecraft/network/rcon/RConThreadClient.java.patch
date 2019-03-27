@@ -1,0 +1,84 @@
+--- ../src-base/minecraft/net/minecraft/network/rcon/RConThreadClient.java
++++ ../src-work/minecraft/net/minecraft/network/rcon/RConThreadClient.java
+@@ -43,7 +43,7 @@
+             {
+                 if (!this.field_72619_a)
+                 {
+-                    return;
++                    break;
+                 }
+ 
+                 BufferedInputStream bufferedinputstream = new BufferedInputStream(this.field_72659_h.getInputStream());
+@@ -56,7 +56,7 @@
+ 
+                     if (k != i - 4)
+                     {
+-                        return;
++                        break;
+                     }
+ 
+                     j = j + 4;
+@@ -109,27 +109,24 @@
+             }
+             catch (SocketTimeoutException var17)
+             {
+-                return;
+             }
+             catch (IOException var18)
+             {
+-                return;
+             }
+             catch (Exception exception1)
+             {
+                 field_164005_h.error("Exception whilst parsing RCON input", (Throwable)exception1);
+-                return;
+             }
+             finally
+             {
+-                this.func_72653_g();
+             }
+-
+-            return;
++            break;
+         }
++        this.func_72653_g();
++        this.field_72619_a = false;
+     }
+ 
+-    private void func_72654_a(int p_72654_1_, int p_72654_2_, String p_72654_3_) throws IOException
++    private synchronized void func_72654_a(int p_72654_1_, int p_72654_2_, String p_72654_3_) throws IOException
+     {
+         ByteArrayOutputStream bytearrayoutputstream = new ByteArrayOutputStream(1248);
+         DataOutputStream dataoutputstream = new DataOutputStream(bytearrayoutputstream);
+@@ -150,12 +147,30 @@
+ 
+     private void func_72655_a(int p_72655_1_, String p_72655_2_) throws IOException
+     {
++        this.sendMultipacketMessage(p_72655_1_, p_72655_2_, 0);
++    }
++    public void sendMessageCarpetChatBridge(String p_72655_2_) 
++    {
++        if (!this.field_72619_a)
++            return;
++        try
++        {
++           this.sendMultipacketMessage(0, p_72655_2_, 1); 
++        }
++        catch (IOException e)
++        {
++            this.field_72619_a = false;
++            this.func_72653_g();
++        }
++    }
++    private void sendMultipacketMessage(int p_72655_1_, String p_72655_2_, int p_72655_3_) throws IOException
++    {
+         int i = p_72655_2_.length();
+ 
+         while (true)
+         {
+             int j = 4096 <= i ? 4096 : i;
+-            this.func_72654_a(p_72655_1_, 0, p_72655_2_.substring(0, j));
++            this.func_72654_a(p_72655_1_, p_72655_3_, p_72655_2_.substring(0, j));
+             p_72655_2_ = p_72655_2_.substring(j);
+             i = p_72655_2_.length();
+ 

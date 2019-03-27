@@ -39,7 +39,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String carpetVersion = "v19_03_08b";
+    public static final String carpetVersion = "v19_03_08b_bismuth";
     public static final String minecraftVersion = "1.12";
     public static final String mcpMappings = "20180713-1.12";
 
@@ -628,6 +628,11 @@ public class CarpetSettings
             "Cactus in a dispenser gives the dispenser the ability to rotate the blocks that are in front of it anti-clockwise if possible."
     })
     public static boolean rotatorBlock = false;
+
+    @Rule(desc = "Tweak rcon protocol to allow chat bridges using it", category = {SURVIVAL, EXPERIMENTAL})
+    @CreativeDefault
+    @SurvivalDefault
+    public static boolean rconChatBridge= false;
 
     @Rule(desc = "Customizable tile tick limit", category = SURVIVAL, options = {"1000", "65536", "1000000"}, validator = "validateTileTickLimit", extra = {
             "-1 for no limit"

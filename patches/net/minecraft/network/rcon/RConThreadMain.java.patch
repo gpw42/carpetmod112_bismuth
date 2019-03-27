@@ -1,0 +1,14 @@
+--- ../src-base/minecraft/net/minecraft/network/rcon/RConThreadMain.java
++++ ../src-work/minecraft/net/minecraft/network/rcon/RConThreadMain.java
+@@ -56,6 +56,11 @@
+         this.field_72648_l = Maps.<SocketAddress, RConThreadClient>newHashMap();
+     }
+ 
++    public void sendMessageCarpetChatBridge(String text)
++    {
++        this.field_72648_l.forEach((s,r) -> r.sendMessageCarpetChatBridge(text));
++    }
++
+     private void func_72645_g()
+     {
+         Iterator<Entry<SocketAddress, RConThreadClient>> iterator = this.field_72648_l.entrySet().iterator();

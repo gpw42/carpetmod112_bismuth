@@ -9,6 +9,15 @@
  public class DedicatedServer extends MinecraftServer implements IServer
  {
      private static final Logger field_155771_h = LogManager.getLogger();
+@@ -50,7 +52,7 @@
+     private final List<PendingCommand> field_71341_l = Collections.<PendingCommand>synchronizedList(Lists.newArrayList());
+     private RConThreadQuery field_71342_m;
+     private final RConConsoleSource field_184115_n = new RConConsoleSource(this);
+-    private RConThreadMain field_71339_n;
++    public RConThreadMain field_71339_n;
+     private PropertyManager field_71340_o;
+     private ServerEula field_154332_n;
+     private boolean field_71338_p;
 @@ -254,6 +256,10 @@
                  TileEntitySkull.func_184293_a(this.func_152358_ax());
                  TileEntitySkull.func_184294_a(this.func_147130_as());
