@@ -92,7 +92,8 @@
  
 -                            if (!this.field_147369_b.field_70145_X && !this.field_147369_b.func_70608_bn())
 +                            // [CM] PistonClippingFix -- Added PistonClippingcounter check to the if statement
-+                            if (!this.field_147369_b.field_70145_X && !this.field_147369_b.func_70608_bn() && this.field_147369_b.pistonClippingCounter == 0)
++                            // Added fix to no clipping creative players. Carpet-XCOM
++                            if (!this.field_147369_b.field_70145_X && !this.field_147369_b.func_70608_bn() && this.field_147369_b.pistonClippingCounter == 0 && (!CarpetSettings.creativeNoClip || !field_147369_b.func_184812_l_()))
                              {
                                  boolean flag1 = worldserver.func_184144_a(this.field_147369_b, this.field_147369_b.func_174813_aQ().func_186664_h(0.0625D)).isEmpty();
  

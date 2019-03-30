@@ -39,7 +39,7 @@ public class CarpetSettings
     public static boolean locked = false;
 
     // TODO: replace these constants at build time
-    public static final String carpetVersion = "v19_03_08b_bismuth";
+    public static final String carpetVersion = "v19_03_30_bismuth";
     public static final String minecraftVersion = "1.12";
     public static final String mcpMappings = "20180713-1.12";
 
@@ -216,6 +216,9 @@ public class CarpetSettings
     @Rule(desc = "Structure blocks remove entities in the bounding box when load entity option is enabled.", category = CREATIVE)
     public static boolean structuresReplaceEntities = false;
 
+    @Rule(desc = "Allows to always be able to eat cakes.", category = CREATIVE)
+    public static boolean cakeAlwaysEat;
+
     private static boolean validateFlyingMachineTransparent(boolean value) {
         int newOpacity = value ? 0 : 255;
         Blocks.OBSERVER.setLightOpacity(newOpacity);
@@ -335,6 +338,12 @@ public class CarpetSettings
 
     @Rule(desc = "Disables snow, ice and lightning in nether and end for stable LCG.", category = {CREATIVE})
     public static boolean enableStableLCGNetherEnd = false;
+
+    @Rule(desc = "Enable creative player no-clip.", category = {CREATIVE})
+    public static boolean creativeNoClip = false;
+
+    @Rule(desc = "Allows players to place blocks inside entity's.", category = {CREATIVE})
+    public static boolean ignoreEntityWhenPlacing = false;
     // ===== FIXES ===== //
     /*
      * Rules in this category should end with the "Fix" suffix
@@ -524,6 +533,14 @@ public class CarpetSettings
     @BugFixDefault
     public static boolean effectsFix = false;
 
+    @Rule(desc = "Fixes entity tracker not rendering entitys such as players in minecarts or boats.", category = FIX)
+    public static boolean entityTrackerFix;
+
+    @Rule(desc = "Players go invisible after using portals.", category = FIX)
+    public static boolean portalTurningPlayersInvisibleFix;
+
+    @Rule(desc = "Fixes updates suppression causing server crashes.", category = FIX)
+    public static boolean updateSuppressionCrashFix;
 
     // ===== SURVIVAL FEATURES ===== //
 
@@ -634,6 +651,12 @@ public class CarpetSettings
     @SurvivalDefault
     public static boolean rconChatBridge= false;
 
+    @Rule(desc = "Water bottles in dispensers fill with water when dispensed with water in front.", category = EXPERIMENTAL)
+    public static boolean dispenserWaterBottle;
+
+    @Rule(desc = "Minecarts can be filled with hoppers, chests, tnt and furnace.", category = EXPERIMENTAL)
+    public static boolean dispenserMinecartFiller;
+
     @Rule(desc = "Customizable tile tick limit", category = SURVIVAL, options = {"1000", "65536", "1000000"}, validator = "validateTileTickLimit", extra = {
             "-1 for no limit"
     })
@@ -641,10 +664,6 @@ public class CarpetSettings
     private static boolean validateTileTickLimit(int value) {
         return value >= -1;
     }
-    
-    @Rule(desc = "Sheep can be sheared using dispensers with shears similar to 1.14 behaviour", category = {FEATURE, EXPERIMENTAL, SURVIVAL})
-    @SurvivalDefault
-    public static boolean dispensersShearSheep = false;
 
 
     // ===== API ===== //
